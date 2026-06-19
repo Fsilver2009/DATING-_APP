@@ -1,22 +1,26 @@
-function containsWord(text, wordList) {
-    return wordList.some(word =>
-        new RegExp(`\\b${word}\\b`, "i").test(text)
-    );
-}
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const response = document.getElementById("response");
 
-function handleDateRequest(userMessage) {
-    const msg = userMessage.toLowerCase();
+// YES click
+yesBtn.addEventListener("click", () => {
+    response.innerHTML = "Thank you hubby 💖😍";
+});
 
-    const acceptWords = ["yes", "i agree", "sure", "ok", "okay", "alright", "yeah", "yep"];
-    const rejectWords = ["no", "nope", "never", "not interested", "nah"];
+// NO button ESCAPING behavior
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 250;
+    const y = Math.random() * 250;
 
-    if (containsWord(msg, acceptWords)) {
-        return "Thank you 😊";
-    }
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
 
-    if (containsWord(msg, rejectWords)) {
-        return "Alright 👍 Let’s talk about something else. What would you like help with?";
-    }
+// ALSO escape on click (extra safety)
+noBtn.addEventListener("click", () => {
+    const x = Math.random() * 250;
+    const y = Math.random() * 250;
 
-    return "Okay 👍 Let’s switch topic. What would you like to do or learn about?";
-}
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
