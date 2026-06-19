@@ -1,18 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Chatbot</title>
+    <meta charset="UTF-8">
+    <title>Pink Chatbot</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff0f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 360px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.2);
+            overflow: hidden;
+        }
+
+        #chatBox {
+            height: 400px;
+            padding: 15px;
+            overflow-y: auto;
+            background: #ffffff;
+            border-bottom: 2px solid #ffb6c1;
+        }
+
+        #chatBox p {
+            margin: 8px 0;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: #fff5fa;
+        }
+
+        input[type="text"] {
+            width: 68%;
+            padding: 10px;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            outline: none;
+            margin: 10px;
+        }
+
+        button {
+            width: 25%;
+            padding: 10px;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff85c1;
+        }
+    </style>
 </head>
+
 <body>
 
-<h2>Chatbot</h2>
+<div class="chat-container">
 
-<div id="chatBox"></div>
+    <div id="chatBox"></div>
 
-<input type="text" id="userInput" placeholder="Type message..." />
-<button id="sendBtn">Send</button>
+    <input type="text" id="userInput" placeholder="Type message..." />
+    <button onclick="sendMessage()">Send</button>
 
-<script src="Fsilver_date.js"></script>
+</div>
+
+<script>
+    function handleDateRequest(userMessage) {
+        const msg = userMessage.toLowerCase().trim();
+
+        const acceptWords = ["yes", "i agree", "sure", "ok", "okay", "alright", "yeah", "yep"];
+        const rejectWords = ["no", "nope", "never", "not interested", "nah"];
+
+        if (acceptWords.some(word => msg.includes(word))) {
+            return "Thank you 😊";
+        }
+
+        if (rejectWords.some(word => msg.includes(word))) {
+            return "Alright 👍 Let’s talk about something else.";
+        }
+
+        return "Okay 👍 Let's switch topic.";
+    }
+
+    function sendMessage() {
+        const input = document.getElementById("userInput");
+        const chatBox = document.getElementById("chatBox");
+
+        const userText = input.value;
+
+        if (userText === "") return;
+
+        const botReply = handleDateRequest(userText);
+
+        chatBox.innerHTML += `<p><b>You:</b> ${userText}</p>`;
+        chatBox.innerHTML += `<p><b>Bot:</b> ${botReply}</p>`;
+
+        input.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
 
 </body>
 </html>
