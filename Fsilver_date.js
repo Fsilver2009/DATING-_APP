@@ -1,59 +1,48 @@
-let escapeCount = 0;
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const response = document.getElementById("response");
+const sound = document.getElementById("romanticSound");
 
-function yesClick() {
-    document.getElementById("response").innerHTML =
-        "Thank you hubby 💖😍";
+// YES CLICK
+yesBtn.addEventListener("click", () => {
+    response.innerHTML = "Thank you hubby 💖😍";
 
-    playSound();
-    createHearts();
+    sound.play();
+
+    // 5 floating hearts only
+    for(let i=0;i<5;i++){
+        createHeart();
+    }
+});
+
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random()*300 + "px";
+    heart.style.top = "50%";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },2000);
 }
 
-function moveNo() {
-    const noBtn = document.getElementById("noBtn");
+// NO BUTTON ESCAPE MODE 😭
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
 
-    escapeCount++;
+function moveButton(){
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
 
-    // move randomly
-    const x = Math.random() * 250;
-    const y = Math.random() * 300;
-
+    noBtn.style.position = "absolute";
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 
-    // after 5 escapes → disappear temporarily
-    if (escapeCount > 5) {
-        noBtn.style.display = "none";
-
-        setTimeout(() => {
-            escapeCount = 0;
-            noBtn.style.display = "block";
-            noBtn.style.left = "50%";
-            noBtn.style.top = "60%";
-        }, 3000);
-    }
-}
-
-/* 💕 hearts animation */
-function createHearts() {
-    for (let i = 0; i < 3; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
-
-        heart.style.left = (50 + Math.random() * 50) + "%";
-        heart.style.top = "60%";
-
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 2000);
-    }
-}
-
-/* 🔊 romantic sound */
-function playSound() {
-    const audio = new Audio("https://www.soundjay.com/human/sounds/applause-01.mp3");
-    audio.volume = 0.3;
-    audio.play();
+    // random size change (annoying mode 😭)
+    const scale = 0.6 + Math.random() * 1.5;
+    noBtn.style.transform = `scale(${scale})`;
 }
