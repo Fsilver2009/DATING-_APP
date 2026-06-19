@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>💌</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love App 💖</title>
 
 <style>
 body {
     margin: 0;
-    height: 100vh;
+    font-family: Arial;
     background: linear-gradient(135deg, #fff0f6, #ffe6f0);
-    font-family: Arial, sans-serif;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
 
 /* Card */
@@ -21,41 +21,41 @@ body {
     width: 90%;
     max-width: 380px;
     background: white;
-    padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(255,105,180,0.25);
+    padding: 20px;
     text-align: center;
+    box-shadow: 0 10px 25px rgba(255,105,180,0.2);
     position: relative;
+    overflow: hidden;
 }
 
 /* Question */
-.question {
-    font-size: 18px;
+h2 {
     color: #ff4da6;
-    font-weight: bold;
+    font-size: 18px;
     margin-bottom: 20px;
 }
 
 /* Buttons */
-.btn {
+button {
     padding: 12px 18px;
     border: none;
     border-radius: 12px;
-    cursor: pointer;
     font-weight: bold;
+    cursor: pointer;
     transition: 0.2s;
+    position: relative;
 }
 
-.yes {
+#yesBtn {
     background: #ff4da6;
     color: white;
     margin-right: 10px;
 }
 
-.no {
+#noBtn {
     background: #ffb6c1;
     color: white;
-    position: absolute;
 }
 
 /* Response */
@@ -63,103 +63,46 @@ body {
     margin-top: 20px;
     font-size: 18px;
     min-height: 40px;
+    color: #444;
 }
 
-/* Hearts */
+/* Floating hearts */
 .heart {
     position: absolute;
     color: #ff4da6;
-    font-size: 20px;
+    font-size: 18px;
     animation: floatUp 2s linear forwards;
 }
 
 @keyframes floatUp {
-    0% {transform: translateY(0) scale(1); opacity: 1;}
-    100% {transform: translateY(-150px) scale(1.5); opacity: 0;}
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-150px); opacity: 0; }
 }
 
 /* Mobile */
 @media (max-width: 480px) {
-    .card {
-        width: 95%;
-    }
+    h2 { font-size: 16px; }
+    button { width: 45%; }
 }
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="card">
 
-<div class="question">
-💌 Please my man… I miss you 🥺💖<br>
-Can we hangout today?
-</div>
+<h2>💖 please mr man i miss you 💔 can we hangout today?</h2>
 
-<button class="btn yes" onclick="yesClicked()">YES 💖</button>
-<button class="btn no" id="noBtn">NO 😌</button>
+<div>
+    <button id="yesBtn">YES 💖</button>
+    <button id="noBtn">NO 😌</button>
+</div>
 
 <div id="response"></div>
 
 </div>
 
-<!-- Romantic sound -->
-<audio id="loveSound" src="https://www.soundjay.com/human/sounds/heartbeat-01a.mp3"></audio>
-
-<script>
-const noBtn = document.getElementById("noBtn");
-const response = document.getElementById("response");
-const sound = document.getElementById("loveSound");
-
-/* Move NO button randomly */
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("click", moveButton);
-
-function moveButton() {
-    const card = document.querySelector(".card");
-
-    const maxX = card.clientWidth - 80;
-    const maxY = card.clientHeight - 50;
-
-    const x = Math.floor(Math.random() * maxX);
-    const y = Math.floor(Math.random() * maxY);
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-
-    // make it shrink a bit (harder to catch 😭)
-    let size = Math.max(10, noBtn.offsetWidth - 2);
-    noBtn.style.width = size + "px";
-}
-
-/* YES clicked */
-function yesClicked() {
-    response.innerHTML = "Thank you hubby 💖😍";
-
-    sound.play();
-
-    // create 5 hearts
-    for (let i = 0; i < 5; i++) {
-        createHeart();
-    }
-}
-
-/* Floating hearts */
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💖";
-
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.top = (window.innerHeight / 2) + "px";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 2000);
-}
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
