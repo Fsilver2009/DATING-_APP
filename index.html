@@ -2,84 +2,83 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>💖</title>
 
 <style>
 body {
     margin: 0;
     font-family: Arial;
-    background: linear-gradient(135deg, #ffe6f0, #fff);
+    background: linear-gradient(135deg, #ffe6f0, #ffffff);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
 }
 
-/* CARD */
+/* main card */
 .card {
     width: 90%;
-    max-width: 400px;
+    max-width: 380px;
     background: white;
+    border-radius: 20px;
     padding: 25px;
-    border-radius: 25px;
     text-align: center;
     box-shadow: 0 10px 25px rgba(255,105,180,0.25);
     position: relative;
 }
 
-/* QUESTION */
+/* message */
 h2 {
     font-size: 18px;
-    color: #ff4da6;
+    color: #ff4d94;
     margin-bottom: 20px;
 }
 
-/* BUTTONS */
-button {
+/* buttons */
+.btn {
     padding: 12px 18px;
     border: none;
-    border-radius: 15px;
+    border-radius: 12px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
+    margin: 8px;
 }
 
-#yesBtn {
+.yes {
     background: #ff4da6;
     color: white;
-    margin-right: 10px;
 }
 
-#noBtn {
+.no {
     background: #ffb6c1;
     color: white;
     position: absolute;
 }
 
-/* RESPONSE */
+/* response */
 #response {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
     color: #444;
 }
 
-/* HEARTS */
+/* hearts animation */
 .heart {
     position: absolute;
-    color: #ff4da6;
     font-size: 20px;
     animation: floatUp 2s linear forwards;
 }
 
 @keyframes floatUp {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-150px); opacity: 0; }
+    0% {transform: translateY(0); opacity:1;}
+    100% {transform: translateY(-120px); opacity:0;}
 }
 
-/* MOBILE */
-@media(max-width: 500px){
-    h2 { font-size: 16px; }
+/* mobile */
+@media(max-width:500px){
+    .card {width: 95%;}
 }
 </style>
 </head>
@@ -88,75 +87,16 @@ button {
 
 <div class="card">
 
-<h2>🥺 please mr man, i miss you 💔🥺 can we hangout today?</h2>
+<h2>💗 Please Mr Man I miss you 🥺💔<br>can we hang out today?</h2>
 
-<button id="yesBtn">YES 💖</button>
-<button id="noBtn">NO 😏</button>
+<button class="btn yes" onclick="yesClick()">YES 💖</button>
+<button class="btn no" id="noBtn" onmouseover="moveNo()">NO 😌</button>
 
 <div id="response"></div>
 
 </div>
 
-<!-- ROMANTIC SOUND -->
-<audio id="loveSound">
-    <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-// BUTTONS
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const response = document.getElementById("response");
-const sound = document.getElementById("loveSound");
-
-// MOVE NO BUTTON (ESCAPE MODE 😂)
-noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 100);
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-});
-
-// YES CLICK 💖
-yesBtn.addEventListener("click", () => {
-    response.innerHTML = "Thank you hubby 💖😍";
-
-    sound.play();
-
-    // CREATE 3 HEARTS
-    for (let i = 0; i < 3; i++) {
-        createHeart();
-    }
-});
-
-// NO CLICK 😭 (still escapes)
-noBtn.addEventListener("click", () => {
-    response.innerHTML = "no is not allowed 😏";
-
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 100);
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-});
-
-// HEART ANIMATION
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💖";
-
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.top = "80%";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 2000);
-}
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
