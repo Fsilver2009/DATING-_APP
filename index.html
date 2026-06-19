@@ -2,70 +2,84 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>💕</title>
+<title>💖</title>
 
 <style>
 body {
     margin: 0;
-    height: 100vh;
+    font-family: Arial;
+    background: linear-gradient(135deg, #ffe6f0, #fff);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fff0f6;
-    font-family: Arial;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* Main card */
+/* CARD */
 .card {
-    width: 380px;
+    width: 90%;
+    max-width: 400px;
     background: white;
-    padding: 30px;
+    padding: 25px;
     border-radius: 25px;
-    box-shadow: 0 10px 25px rgba(255,105,180,0.25);
     text-align: center;
+    box-shadow: 0 10px 25px rgba(255,105,180,0.25);
     position: relative;
 }
 
-/* Romantic question */
-.question {
+/* QUESTION */
+h2 {
     font-size: 18px;
     color: #ff4da6;
-    font-weight: bold;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-/* Buttons */
+/* BUTTONS */
 button {
-    padding: 12px 20px;
+    padding: 12px 18px;
     border: none;
     border-radius: 15px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
-    position: absolute;
 }
 
-/* YES button */
 #yesBtn {
     background: #ff4da6;
     color: white;
-    left: 80px;
-    top: 150px;
+    margin-right: 10px;
 }
 
-/* NO button */
 #noBtn {
     background: #ffb6c1;
     color: white;
-    left: 200px;
-    top: 150px;
+    position: absolute;
 }
 
-/* Response text */
+/* RESPONSE */
 #response {
-    margin-top: 120px;
+    margin-top: 20px;
     font-size: 18px;
     color: #444;
+}
+
+/* HEARTS */
+.heart {
+    position: absolute;
+    color: #ff4da6;
+    font-size: 20px;
+    animation: floatUp 2s linear forwards;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-150px); opacity: 0; }
+}
+
+/* MOBILE */
+@media(max-width: 500px){
+    h2 { font-size: 16px; }
 }
 </style>
 </head>
@@ -74,19 +88,75 @@ button {
 
 <div class="card">
 
-<div class="question">
-    Please Mr Man I miss you 😢💕 <br>
-    can we hang out today?
-</div>
+<h2>🥺 please mr man, i miss you 💔🥺 can we hangout today?</h2>
 
 <button id="yesBtn">YES 💖</button>
-<button id="noBtn">NO 😌</button>
+<button id="noBtn">NO 😏</button>
 
 <div id="response"></div>
 
 </div>
 
-<script src="script.js"></script>
+<!-- ROMANTIC SOUND -->
+<audio id="loveSound">
+    <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// BUTTONS
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const response = document.getElementById("response");
+const sound = document.getElementById("loveSound");
+
+// MOVE NO BUTTON (ESCAPE MODE 😂)
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// YES CLICK 💖
+yesBtn.addEventListener("click", () => {
+    response.innerHTML = "Thank you hubby 💖😍";
+
+    sound.play();
+
+    // CREATE 3 HEARTS
+    for (let i = 0; i < 3; i++) {
+        createHeart();
+    }
+});
+
+// NO CLICK 😭 (still escapes)
+noBtn.addEventListener("click", () => {
+    response.innerHTML = "no is not allowed 😏";
+
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// HEART ANIMATION
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = "80%";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 2000);
+}
+</script>
 
 </body>
 </html>
