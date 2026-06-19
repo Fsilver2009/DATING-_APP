@@ -23,8 +23,22 @@ yesBtn.addEventListener("click", () => {
 
 /* 💔 NO CLICK */
 noBtn.addEventListener("click", () => {
-    response.innerHTML = "i miss you baby 💔";
+
     playSound("no");
+
+    response.innerHTML =
+    "😢 Baby, I miss you... please 💔";
+
+    setTimeout(() => {
+        response.innerHTML =
+        "🥺 Please baby, I miss your smile 💕";
+    }, 2000);
+
+    setTimeout(() => {
+        response.innerHTML =
+        "💖 I'll be waiting for you...";
+    }, 4000);
+
 });
 
 /* 😂 ESCAPING NO BUTTON */
