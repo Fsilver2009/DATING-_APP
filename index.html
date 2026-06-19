@@ -1,117 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Pink Chatbot</title>
+<meta charset="UTF-8">
+<title>💕</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #fff0f6;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff0f6;
+    font-family: Arial;
+}
 
-        .chat-container {
-            width: 360px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.2);
-            overflow: hidden;
-        }
+/* Main card */
+.card {
+    width: 380px;
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(255,105,180,0.25);
+    text-align: center;
+    position: relative;
+}
 
-        #chatBox {
-            height: 400px;
-            padding: 15px;
-            overflow-y: auto;
-            background: #ffffff;
-            border-bottom: 2px solid #ffb6c1;
-        }
+/* Romantic question */
+.question {
+    font-size: 18px;
+    color: #ff4da6;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
 
-        #chatBox p {
-            margin: 8px 0;
-            padding: 8px 10px;
-            border-radius: 10px;
-            background: #fff5fa;
-        }
+/* Buttons */
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    position: absolute;
+}
 
-        input[type="text"] {
-            width: 68%;
-            padding: 10px;
-            border: 2px solid #ffb6c1;
-            border-radius: 10px;
-            outline: none;
-            margin: 10px;
-        }
+/* YES button */
+#yesBtn {
+    background: #ff4da6;
+    color: white;
+    left: 80px;
+    top: 150px;
+}
 
-        button {
-            width: 25%;
-            padding: 10px;
-            background: #ff69b4;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+/* NO button */
+#noBtn {
+    background: #ffb6c1;
+    color: white;
+    left: 200px;
+    top: 150px;
+}
 
-        button:hover {
-            background: #ff85c1;
-        }
-    </style>
+/* Response text */
+#response {
+    margin-top: 120px;
+    font-size: 18px;
+    color: #444;
+}
+</style>
 </head>
 
 <body>
 
-<div class="chat-container">
+<div class="card">
 
-    <div id="chatBox"></div>
+<div class="question">
+    Please Mr Man I miss you 😢💕 <br>
+    can we hang out today?
+</div>
 
-    <input type="text" id="userInput" placeholder="Type message..." />
-    <button onclick="sendMessage()">Send</button>
+<button id="yesBtn">YES 💖</button>
+<button id="noBtn">NO 😌</button>
+
+<div id="response"></div>
 
 </div>
 
-<script>
-    function handleDateRequest(userMessage) {
-        const msg = userMessage.toLowerCase().trim();
-
-        const acceptWords = ["yes", "i agree", "sure", "ok", "okay", "alright", "yeah", "yep"];
-        const rejectWords = ["no", "nope", "never", "not interested", "nah"];
-
-        if (acceptWords.some(word => msg.includes(word))) {
-            return "Thank you 😊";
-        }
-
-        if (rejectWords.some(word => msg.includes(word))) {
-            return "Alright 👍 Let’s talk about something else.";
-        }
-
-        return "Okay 👍 Let's switch topic.";
-    }
-
-    function sendMessage() {
-        const input = document.getElementById("userInput");
-        const chatBox = document.getElementById("chatBox");
-
-        const userText = input.value;
-
-        if (userText === "") return;
-
-        const botReply = handleDateRequest(userText);
-
-        chatBox.innerHTML += `<p><b>You:</b> ${userText}</p>`;
-        chatBox.innerHTML += `<p><b>Bot:</b> ${botReply}</p>`;
-
-        input.value = "";
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
