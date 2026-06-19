@@ -1,155 +1,68 @@
-// ============================
-// ELEMENTS
-// ============================
-
-const screen1 = document.getElementById("screen1");
-const screen2 = document.getElementById("screen2");
-
-const continueBtn = document.getElementById("continueBtn");
-
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-
 const response = document.getElementById("response");
-// ============================
-// VARIABLES
-// ============================
 
-let escapeCount = 0;
+/* 🔊 Romantic sound using Web Audio */
+function playSound(type) {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = ctx.createOscillator();
+    oscillator.type = "sine";
+    oscillator.frequency.value = type === "yes" ? 600 : 200;
 
-// ============================
-// CONTINUE BUTTON
-// ============================
-
-continueBtn.addEventListener("click", () => {
-
-    screen1.classList.remove("active");
-    screen2.classList.add("active");
-
-});
-
-// ============================
-// YES BUTTON
-// ============================
-
-yesBtn.addEventListener("click", () => {
-    response.innerHTML =
-    "Thank you hubby 💖😍";
-
-    createHearts();
-
-    setTimeout(() => {
-
-        response.innerHTML =
-        "🌹 You made my day baby 🥰";
-
-    }, 2500);
-
-});
-
-// ============================
-// NO BUTTON ESCAPE
-// ============================
-
-function moveButton() {
-
-    escapeCount++;
-
-    const x =
-    Math.random() * 250 - 125;
-
-    const y =
-    Math.random() * 150 - 75;
-
-    const size =
-    0.8 + Math.random() * 0.8;
-
-    noBtn.style.transform =
-    `translate(${x}px, ${y}px)
-     scale(${size})`;
-
-    if (escapeCount === 5) {
-
-        response.innerHTML =
-        "🥺 Baby I miss you... please 💔";
-
-    }
-
-    if (escapeCount === 10) {
-
-        response.innerHTML =
-        "😭 Just one small hangout baby? 💕";
-
-    }
-
+    oscillator.connect(ctx.destination);
+    oscillator.start();
+    setTimeout(() => oscillator.stop(), 150);
 }
 
-// Desktop
-noBtn.addEventListener("mouseover", moveButton);
+/* 💖 YES CLICK */
+yesBtn.addEventListener("click", () => {
+    response.innerHTML = "Thank you hubby 💖😍";
+    playSound("yes");
+    spawnHearts();
+});
 
-// Mobile
-noBtn.addEventListener("touchstart", moveButton);
-
-// ============================
-// NO BUTTON CLICK
-// ============================
-
+/* 💔 NO CLICK */
 noBtn.addEventListener("click", () => {
 
-    noSound.currentTime = 0;
-    noSound.play();
+    playSound("no");
 
     response.innerHTML =
-    "😢 Baby I miss you... please 💔";
+    "😢 Baby, I miss you... please 💔";
 
     setTimeout(() => {
-
         response.innerHTML =
-        "🥺 I really miss you baby 💕";
-
-    }, 2500);
+        "🥺 Please baby, I miss your smile 💕";
+    }, 2000);
 
     setTimeout(() => {
-
         response.innerHTML =
-        "🌹 I'll be waiting for you...";
-
-    }, 5000);
+        "💖 I'll be waiting for you...";
+    }, 4000);
 
 });
 
-// ============================
-// HEART ANIMATION
-// ============================
+/* 😂 ESCAPING NO BUTTON */
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 200 - 100;
+    const y = Math.random() * 100 - 50;
 
-function createHearts() {
+    noBtn.style.transform = `translate(${x}px, ${y}px) scale(${0.8 + Math.random() * 0.5})`;
+});
 
-    const card =
-    document.querySelector(".card");
-
+/* 💖 FLOATING HEARTS (5 only) */
+function spawnHearts() {
     for (let i = 0; i < 5; i++) {
-
-        const heart =
-        document.createElement("div");
-
+        const heart = document.createElement("div");
         heart.classList.add("heart");
-
         heart.innerHTML = "💖";
 
-        heart.style.left =
-        (100 + Math.random() * 150) + "px";
+        heart.style.left = (50 + Math.random() * 100 - 50) + "px";
+        heart.style.top = "200px";
 
-        heart.style.top =
-        "220px";
-
-        card.appendChild(heart);
+        document.querySelector(".card").appendChild(heart);
 
         setTimeout(() => {
-
             heart.remove();
-
         }, 2000);
-
     }
-
 }
